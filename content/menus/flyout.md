@@ -495,11 +495,12 @@ For situations when the parent menu item needs to carry out a function, such as 
 .show-overflow .box-content {
 		overflow: visible !important;
 }
-	#flyoutnavkbbtn {
+	/*#flyoutnavkbbtn {
 			display:table;
 			width:100%;
 	}
-	#flyoutnavkbbtn > ul {
+	*/
+#flyoutnavkbbtn > ul {
 			margin: 0;
 			padding: 0;
 			display:flex;
@@ -650,7 +651,8 @@ var parseHTML = function(str) {
 
 Array.prototype.forEach.call(menuItems1, function(el, i){
 		var activatingA = el.querySelector('a');
-		var btn = '<button><span><span class="visuallyhidden">show submenu for “' + activatingA.text + '”</span></span></button>';
+		var btn = `<button aria-label="show submenu for ${activatingA.text}">&darr;</button>`;
+		//var btn = '<button><span><span class="visuallyhidden">show submenu for “' + activatingA.text + '”</span></span></button>';
 		activatingA.insertAdjacentHTML('afterend', btn);
 		el.addEventListener("mouseover", function(event){
 				this.className = "has-submenu open";
@@ -665,6 +667,7 @@ Array.prototype.forEach.call(menuItems1, function(el, i){
 						document.querySelector('#flyoutnavkbbtn .has-submenu.open button').setAttribute('aria-expanded', "false");
 				}, 1000);
 		});
+
 		el.querySelector('button').addEventListener("click",  function(event){
 			if (this.parentNode.className == "has-submenu") {
 				this.parentNode.className = "has-submenu open";
